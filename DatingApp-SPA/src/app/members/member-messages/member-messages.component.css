@@ -22,4 +22,9 @@
 .card-body {
     overflow-y: scroll;
     height: 400px;
+    scroll-snap-type: y mandatory;
+}
+
+.chat {
+    scroll-snap-align: end;
 }

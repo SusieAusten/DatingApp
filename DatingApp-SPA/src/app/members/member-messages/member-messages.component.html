@@ -4,7 +4,7 @@
       <p>No messages yet... say hi by using the message box below.</p>
     </div>
 
-    <ul class="chat">
+    <ul class="chat" >
       <li *ngFor="let message of messages">
         <!-- to them -->
         <div *ngIf="message.senderId == recipientId">
