@@ -20,4 +20,17 @@ updateUserRoles(user: User, roles: {}) {
   return this.http.post(this.baseUrl + 'admin/editRoles/' + user.userName.toLowerCase(), roles);
 }
 
+getPhotosForModeration() {
+  return this.http.get(this.baseUrl + 'admin/photosForModeration');
+}
+
+approvePhoto(photoId: number) {
+  return this.http.post(this.baseUrl + 'admin/approvePhoto/' + photoId, {});
+
+}
+
+rejectPhoto(photoId: number) {
+  return this.http.post(this.baseUrl + 'admin/rejectPhoto/' + photoId, {});
+}
+
 }

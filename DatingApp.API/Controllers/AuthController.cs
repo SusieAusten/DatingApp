@@ -25,11 +25,13 @@ namespace DatingApp.API.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _UserManager;
         private readonly SignInManager<User> _SignInManager;
+        private readonly IDatingRepository _repo;
 
         public AuthController(IConfiguration config, IMapper mapper,
-        UserManager<User> UserManager, SignInManager<User> SignInManager)
+        UserManager<User> UserManager, SignInManager<User> SignInManager, IDatingRepository repo)
         {
             _SignInManager = SignInManager;
+            _repo = repo;
             _UserManager = UserManager;
             _mapper = mapper;
             _config = config;
@@ -65,6 +67,12 @@ namespace DatingApp.API.Controllers
             if (result.Succeeded)
             {
                 var appUser = _mapper.Map<UserForListDto>(user);
+                
+                var photo = _repo.GetMainPhotoForUser(user.Id).Result;
+                if (photo != null)
+                {
+                    appUser.PhotoUrl = photo.Url;
+                }
 
                 return Ok(new
                 {

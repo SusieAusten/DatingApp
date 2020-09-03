@@ -2,6 +2,13 @@ img.img-thumbnail {
     height: 100px;
     min-width: 100px !important;
     margin-bottom: 2px;
+    position: relative;
+    text-align: center;
+    
+}
+
+.not-approved {
+    opacity: 20%;
 }
 
 .nv-file-over {
@@ -10,4 +17,11 @@ img.img-thumbnail {
 
 input[type=file] {
     color: transparent;
+}
+
+.textOverImg {
+    color: red;
+    position: absolute;
+    top: 47px;
+    left:32px;
 }
