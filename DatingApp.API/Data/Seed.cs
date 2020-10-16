@@ -29,10 +29,32 @@ namespace DatingApp.API.Data
                     roleManager.CreateAsync(role).Wait();
                 }
 
+                //create admin user
+                var adminUser = new User
+                {
+                    UserName = "AdminJC"
+                };
+
+                // userManager.CreateAsync(adminUser, "password").Wait();
+                // userManager.AddToRoleAsync(adminUser, "Admin");
+
+                //userManager.AddToRolesAsync(adminUser, new[] {"Admin", "Moderator"});
+
+                var adminResult = userManager.CreateAsync(adminUser, "PasswordJC").Result;
+
+                if (adminResult.Succeeded)
+                {
+                    var admin = userManager.FindByNameAsync("AdminJC").Result;
+                    userManager.AddToRolesAsync(admin, new[] {"Admin", "Moderator"});
+
+                }
+
+                //create the users
 
                 foreach (var user in users)
                 {
                     user.Photos.FirstOrDefault().IsApproved = true;
+
                     // userManager.CreateAsync(user, "password").Wait();
                     // userManager.AddToRoleAsync(user, "Member");
                     var result = userManager.CreateAsync(user, "password").Result;
@@ -40,24 +62,6 @@ namespace DatingApp.API.Data
                     {
                         userManager.AddToRoleAsync(user, "Member");
                     }
-
-                }
-
-                //create admin user
-                var adminUser = new User
-                {
-                    UserName = "Admin"
-                };
-
-                // userManager.CreateAsync(adminUser, "password").Wait();
-                // userManager.AddToRolesAsync(adminUser, new[] {"Admin", "Moderator"});
-
-                var adminResult = userManager.CreateAsync(adminUser, "password").Result;
-
-                if (adminResult.Succeeded)
-                {
-                    var admin = userManager.FindByNameAsync("Admin").Result;
-                    userManager.AddToRolesAsync(admin, new[] {"Admin", "Moderator"});
 
                 }
             }
